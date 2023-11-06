@@ -1,5 +1,5 @@
 import { Telegraf } from "telegraf";
-import { fetchCourses } from "./fetch.js";
+import { fetchCourses } from "./functions/bot/fetch.js";
 
 const bot = new Telegraf("6784120619:AAHTWgtV8z3dMrjihEk0vKjmSZ1KHaQ65tc");
 
@@ -65,6 +65,19 @@ bot.on("callback_query", async (ctx) => {
   }
 });
 bot.launch();
+
+export const handler = async (event) => {
+  try {
+    await bot.handleUpdate(JSON.parse(event.body));
+    return { statusCode: 200, body: "" };
+  } catch (e) {
+    console.error("error in handler:", e);
+    return {
+      statusCode: 400,
+      body: "This endpoint is meant for bot and telegram communication",
+    };
+  }
+};
 
 process.once("SIGINT", () => bot.stop("SIGINT"));
 process.once("SIGTERM", () => bot.stop("SIGTERM"));

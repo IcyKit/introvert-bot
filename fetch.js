@@ -10,11 +10,14 @@ export const fetchCourses = async (choice) => {
       },
     }
   );
+  const filteredData = data.data.courses.filter((item) =>
+    /^[а-яА-ЯёЁ\s]+$/.test(item.title)
+  );
   const getRandomCourse = (arr) => {
     const randomIndex = Math.floor(Math.random() * arr.length);
     return arr[randomIndex];
   };
-  const course = getRandomCourse(data.data.courses);
+  const course = getRandomCourse(filteredData);
   return {
     title: course?.title,
     id: course?.id,

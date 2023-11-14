@@ -64,6 +64,7 @@ bot.on("callback_query", async (ctx) => {
 Ссылка на саммари: https://new.artforintrovert.ru/course/${id}`);
   }
 });
+
 bot.launch();
 
 process.once("SIGINT", () => bot.stop("SIGINT"));
